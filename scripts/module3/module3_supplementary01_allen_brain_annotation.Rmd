@@ -1,0 +1,41 @@
+```{r}
+devtools::install_github("dmcable/spacexr", build_vignettes = FALSE)
+```
+
+```{r}
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+remotes::install_github("satijalab/seurat", "seurat5", quiet = TRUE, dependencies=TRUE)
+remotes::install_github("mojaveazure/seurat-disk", dependencies=TRUE, quiet = TRUE)
+
+install.packages("reticulate")
+install.packages("hdf5r", dependencies=TRUE)
+
+```
+
+```{r}
+obj <- readRDS("/home/shamini/data1/data_orig/data/spatial/xenium/10xGenomics/GEO_GSE255953/GSE255953_xen_atn_analysis.rds")
+
+
+```
+
+```{r}
+obj
+
+```
+
+```{r}
+library(Seurat)
+library(SeuratDisk)
+
+out <-  '/home/shamini/data/projects/spatial_workshop/out/module2/' ### output directory for saving files. We have created these output directories in advance to save time. Participants are free to create their own if they wish to.
+```
+
+```{r}
+
+# Convert AnnData to Seurat
+Convert("out+'script01_objects/adata.h5ad", dest = "h5Seurat", overwrite = TRUE)
+adata_seurat <- LoadH5Seurat("out+'script01_objects/adata.h5Seurat")
+
+```

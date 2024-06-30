@@ -7,9 +7,10 @@ def clean_processed_tf(processed_data, qv=20):
     neg_assigned = processed_data[(processed_data['group'] == 'neg_probes') & (processed_data['binary'] == 'assigned')].copy()
     
     # Subset for transcripts with qv > 20
-    gene_qv = gene_assigned[gene_assigned['qv'] > qv].copy()
+    gene_qv_tf = gene_assigned[gene_assigned['qv'] > qv].copy()
+
     # Group by cell_id and feature_name, then count the number of transcripts
-    gene_qv = gene_qv.groupby(['cell_id', 'feature_name'])['transcript_id'].size().reset_index(name='transcript_count')
+    gene_qv = gene_qv_tf.groupby(['cell_id', 'feature_name'])['transcript_id'].size().reset_index(name='transcript_count')
     # Pivot table to create a matrix of transcript counts
     gene_mtx = gene_qv.pivot_table(index='cell_id', columns='feature_name', values='transcript_count').fillna(0)
     new_gene_mtx = pd.DataFrame(gene_mtx.values, columns=gene_mtx.columns, index=gene_mtx.index)
@@ -41,4 +42,4 @@ def clean_processed_tf(processed_data, qv=20):
     new_centroids.index.name = None
     new_centroids = new_centroids.rename_axis(None, axis=1)
     
-    return df_counts, new_gene_mtx, new_neg_mtx, centroids
+    return df_counts, gene_qv_tf, new_gene_mtx, new_neg_mtx, centroids

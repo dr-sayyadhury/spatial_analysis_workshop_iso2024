@@ -15,7 +15,7 @@ def fov_plot(processed_data, plot_qv=True, ax=None, identifier=['gene_probes', '
         norm = None
 
     grouped = processed_data.groupby('fov_name')
-
+    
     for fov, group in grouped:
         if group.shape[0] > 0:
             x = group['x_location'].values
@@ -26,12 +26,14 @@ def fov_plot(processed_data, plot_qv=True, ax=None, identifier=['gene_probes', '
             xy11 = (x.max(), y.max())
             xy = [xy00, xy01, xy11, xy10, xy00]
 
+            group_assigned = group[group['binary'] == 'assigned']
+        
             if plot_qv:
                 qv_avg = None
-                if (group['group'] == identifier).any():
-                    qv_avg = group.loc[group['group'] == identifier, 'qv'].mean()
-                elif (group['group'] == identifier).any():
-                    qv_avg = group.loc[group['group'] == identifier, 'qv'].mean()
+                if (group_assigned['group'] == identifier).any():
+                    qv_avg = group_assigned.loc[group_assigned['group'] == identifier, 'qv'].mean()
+                elif (group_assigned['group'] == identifier).any():
+                    qv_avg = group_assigned.loc[group['group'] == identifier, 'qv'].mean()
                 
                 if qv_avg is not None:
                     color = cmap(norm(qv_avg))
