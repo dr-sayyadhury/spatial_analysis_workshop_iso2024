@@ -30,7 +30,7 @@ def clean_processed_tf(processed_data, qv=20):
     neg_counts = neg_mtx.sum(axis=1)
 
     df_counts = pd.concat([gene_counts, neg_counts], axis=1)
-    df_counts.columns = ['gene_counts', 'neg_counts']
+    df_counts.columns = ['total_counts', 'neg_counts']
     df_counts = df_counts.fillna(0)
 
     ### calculate centroids
