@@ -21,6 +21,8 @@ def colors():
     "#005a8a",#18orient
     "#443500",#19cola
     "#274d52",#20plantation
-    "#c7a2a6"]#21eunry
+    "#c7a2a6",#21eunry
+    "#818b70",#battleship
+    "#8c9fb7"]#bali hai
     
     return colors

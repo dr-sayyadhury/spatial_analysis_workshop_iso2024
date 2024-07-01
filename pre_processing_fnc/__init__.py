@@ -8,3 +8,4 @@ from .process_adata import process_adata
 from .process_adata import prepare_adata
 from .monitor_memory import get_memory_usage
 from .accessories import colors
+from .plot_composite_img import plot_composite_image
